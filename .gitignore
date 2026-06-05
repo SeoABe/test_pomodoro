@@ -3,3 +3,6 @@ __pycache__/
 build/
 _t/
 .claude/
+_tools/
+dist/pomotest.exe
+*.spec
