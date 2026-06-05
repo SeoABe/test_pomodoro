@@ -6,3 +6,4 @@ _t/
 _tools/
 dist/pomotest.exe
 *.spec
+dist/
