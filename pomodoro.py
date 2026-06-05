@@ -344,5 +344,23 @@ class Pomodoro:
             pass
 
 
+def _selftest():
+    """동결(exe) 빌드의 임포트/아이콘/알림 경로를 헤드리스로 검증 후 종료."""
+    app = Pomodoro()
+    app.toggle()
+    app.skip()
+    assert app._make_icon().size == (64, 64)
+    app._notify("selftest", "ok")
+    app._beep()
+    app.root.after(200, lambda: app.icon.stop())
+    app.root.after(300, app.root.destroy)
+    threading.Thread(target=app.icon.run, daemon=True).start()
+    app.root.mainloop()
+    print("SELFTEST OK", "phase=", app.phase)
+
+
 if __name__ == "__main__":
-    Pomodoro().run()
+    if os.environ.get("POMO_SELFTEST"):
+        _selftest()
+    else:
+        Pomodoro().run()
